@@ -1,0 +1,2425 @@
+[
+    {
+        "id": "6c230a9c2f95163c",
+        "type": "tab",
+        "label": "Lab Final Screen Page Two",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a31c486a6e39b407",
+        "type": "inject",
+        "z": "6c230a9c2f95163c",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "17c989fbf00ffea8",
+                "9423577962f506d9"
+            ]
+        ]
+    },
+    {
+        "id": "9423577962f506d9",
+        "type": "http request",
+        "z": "6c230a9c2f95163c",
+        "name": "Card_Check",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.102:8013/lock_check",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 440,
+        "wires": [
+            [
+                "eb683aebba023275"
+            ]
+        ]
+    },
+    {
+        "id": "eb683aebba023275",
+        "type": "switch",
+        "z": "6c230a9c2f95163c",
+        "name": "Verified",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "cc877ed042dc1b8f"
+            ],
+            [
+                "9423577962f506d9"
+            ],
+            [
+                "9423577962f506d9"
+            ]
+        ]
+    },
+    {
+        "id": "2aeb6b18d52d414e",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "4efb05967f065466",
+        "name": "Please Swipe Card",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n        height: 100%;\n        }\n        \n        html,\n        body {\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        }\n        /*.nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        color: rgb(43,162,69) !important;\n        }*/\n        .nr-dashboard-template{\n        padding:1px !important;\n        }\n        body.nr-dashboard-theme md-content md-card{\n        background-color:#ffffff;\n        }\n        .nr-dashboard-cardpanel > p{\n        text-align:center !important;\n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        border-bottom:1px #e3e3e3 !important;\n        }\n        .nr-dashboard-template p {\n        background-color:#ffffff !important;\n        text-align: center;\n        font-size:16px;\n        word-wrap:break-word;\n        }\n        .contentText{\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        font-size:16px;\n        font-weight:bold;\n        display: -webkit-box;\n        -webkit-box-orient: horizontal;\n        -webkit-box-pack: center;\n        -webkit-box-align: center;\n        \n        display: -moz-box;\n        -moz-box-orient: horizontal;\n        -moz-box-pack: center;\n        -moz-box-align: center;\n        \n        display: -o-box;\n        -o-box-orient: horizontal;\n        -o-box-pack: center;\n        -o-box-align: center;\n        \n        display: -ms-box;\n        -ms-box-orient: horizontal;\n        -ms-box-pack: center;\n        -ms-box-align: center;\n        \n        display: box;\n        box-orient: horizontal;\n        box-pack: center;\n        box-align: center;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n      <p class=\"coText\">\n    Please Swipe Your Card</p>\n    </div>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 250,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24d88efafdf90a68",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "37a9474bda7cd701",
+        "name": "Select Service",
+        "order": 1,
+        "width": 5,
+        "height": 3,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n            height: 100%;\n        }\n\n        html,\n        body {\n            height: auto;\n            width: auto;\n        }\n\n        table,\n        th,\n        td {\n            border: 1px solid black;\n            border-collapse: collapse;\n            padding: 8px;\n            text-align: center;\n            font-size: 12px;\n        }\n\n        #header {\n        font-size: 18px;\n        font-family: 'georgia';\n        font-weight: bold;\n        text-align: center;\n        }\n        p {\n            font-size: 14px;\n            text-align: center;/*\n            font-size: 33px;\n            font-family: 'georgia';\n            font-weight: bold;\n            text-align: center;\n            background-color: lightgrey;\n            color: blue;\n            display: inline-block;\n            margin-left: 12px;*/\n        }\n\n        tt {\n            background-color: lightgrey;\n            color: blue;\n        display: inline-block;\n        margin-left: 12px;\n        font-size: 50px;\n        /*font-size: 14px;\n        font-weight: bold;\n        text-decoration-line: underline;\n        text-decoration-color: red;\n        text-decoration-style: double;\n        text-decoration-thickness: 5px;*/\n        }\n\n        img {\n            \n            //border: 2px solid powderblue;\n            //margin: 50px;\n            background-color: blue;\n            position: absolute;\n            width: 350px;\n            height: 200px;\n            top: 150px;\n            bottom: 10px;\n            right: 10px;\n            opacity: 0.3;\n            border: 3px solid #73AD21;\n        }\n\n        img2 {\n        \n        //border: 2px solid powderblue;\n        //margin: 50px;\n        background-color: blue;\n        position: absolute;\n        width: 350px;\n        height: 200px;\n        top: 350px;\n        bottom: 10px;\n        right: 10px;\n        opacity: 0.3;\n        border: 3px solid #73AD21;\n        }\n\n        .intro {\n            font-size: 12px;\n            padding-top: 8px;\n            padding-bottom: 8px;\n        }\n\n        .weatherImg {\n            width: 50px;\n            height: 50px;\n        }\n\n        #myTable {\n            min-height: 500px;\n        }\n\n        .headline.logo {\n            width: 50px;\n            height: 50px;\n            display: inline-block;\n            vertical-align: middle;\n        }\n\n        .headline .info {\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 14px;\n            font-weight: bold;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n        <p class=\"coText\">\n    Hello My FRIEND! <br> \n    You are verified. <br> \n    Please Select Service</p>\n    </div>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 240,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "227938054a0d14dc",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "d": true,
+        "group": "5feda47adee3205d",
+        "name": "Select Tool to Borrow",
+        "order": 1,
+        "width": 5,
+        "height": 4,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n            height: 100%;\n        }\n\n        html,\n        body {\n            height: auto;\n            width: auto;\n        }\n\n        table,\n        th,\n        td {\n            border: 1px solid black;\n            border-collapse: collapse;\n            padding: 8px;\n            text-align: center;\n            font-size: 12px;\n        }\n\n        #header {\n        font-size: 18px;\n        font-family: 'georgia';\n        font-weight: bold;\n        text-align: center;\n        }\n        p {\n            \n            font-size: 33px;\n            font-family: 'georgia';\n            font-weight: bold;\n            text-align: center;\n            background-color: lightgrey;\n            color: blue;\n            display: inline-block;\n            margin-left: 12px;\n        }\n\n        tt {\n            background-color: lightgrey;\n            color: blue;\n        display: inline-block;\n        margin-left: 12px;\n        font-size: 50px;\n        /*font-size: 14px;\n        font-weight: bold;\n        text-decoration-line: underline;\n        text-decoration-color: red;\n        text-decoration-style: double;\n        text-decoration-thickness: 5px;*/\n        }\n\n        img {\n            \n            //border: 2px solid powderblue;\n            //margin: 50px;\n            background-color: blue;\n            position: absolute;\n            width: 350px;\n            height: 200px;\n            top: 150px;\n            bottom: 10px;\n            right: 10px;\n            opacity: 0.3;\n            border: 3px solid #73AD21;\n        }\n\n        img2 {\n        \n        //border: 2px solid powderblue;\n        //margin: 50px;\n        background-color: blue;\n        position: absolute;\n        width: 350px;\n        height: 200px;\n        top: 350px;\n        bottom: 10px;\n        right: 10px;\n        opacity: 0.3;\n        border: 3px solid #73AD21;\n        }\n\n        .intro {\n            font-size: 12px;\n            padding-top: 8px;\n            padding-bottom: 8px;\n        }\n\n        .weatherImg {\n            width: 50px;\n            height: 50px;\n        }\n\n        #myTable {\n            min-height: 500px;\n        }\n\n        .headline.logo {\n            width: 50px;\n            height: 50px;\n            display: inline-block;\n            vertical-align: middle;\n        }\n\n        .headline .info {\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 14px;\n            font-weight: bold;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <p>Please Select the Tool to Borrow</p>\n    \n    <p class=\"intro\">{{msg.payload}}</>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 480,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c6cbd510f305644",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "d": true,
+        "group": "eb13a22d70fa954b",
+        "name": "Select Tool to Return",
+        "order": 1,
+        "width": 5,
+        "height": 4,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n            height: 100%;\n        }\n\n        html,\n        body {\n            height: auto;\n            width: auto;\n        }\n\n        table,\n        th,\n        td {\n            border: 1px solid black;\n            border-collapse: collapse;\n            padding: 8px;\n            text-align: center;\n            font-size: 12px;\n        }\n\n        #header {\n        font-size: 18px;\n        font-family: 'georgia';\n        font-weight: bold;\n        text-align: center;\n        }\n        p {\n        font-size: 14px;\n        text-align: center;/*\n        font-size: 33px;\n        font-family: 'georgia';\n        font-weight: bold;\n        text-align: center;\n        background-color: lightgrey;\n        color: blue;\n        display: inline-block;\n        margin-left: 12px;*/\n        }\n\n        tt {\n            background-color: lightgrey;\n            color: blue;\n        display: inline-block;\n        margin-left: 12px;\n        font-size: 50px;\n        /*font-size: 14px;\n        font-weight: bold;\n        text-decoration-line: underline;\n        text-decoration-color: red;\n        text-decoration-style: double;\n        text-decoration-thickness: 5px;*/\n        }\n\n        img {\n            \n            //border: 2px solid powderblue;\n            //margin: 50px;\n            background-color: blue;\n            position: absolute;\n            width: 350px;\n            height: 200px;\n            top: 150px;\n            bottom: 10px;\n            right: 10px;\n            opacity: 0.3;\n            border: 3px solid #73AD21;\n        }\n\n        img2 {\n        \n        //border: 2px solid powderblue;\n        //margin: 50px;\n        background-color: blue;\n        position: absolute;\n        width: 350px;\n        height: 200px;\n        top: 350px;\n        bottom: 10px;\n        right: 10px;\n        opacity: 0.3;\n        border: 3px solid #73AD21;\n        }\n\n        .intro {\n            font-size: 12px;\n            padding-top: 8px;\n            padding-bottom: 8px;\n        }\n\n        .weatherImg {\n            width: 50px;\n            height: 50px;\n        }\n\n        #myTable {\n            min-height: 500px;\n        }\n\n        .headline.logo {\n            width: 50px;\n            height: 50px;\n            display: inline-block;\n            vertical-align: middle;\n        }\n\n        .headline .info {\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 14px;\n            font-weight: bold;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <p>Please Select the Tool to Return</p>\n\n    <p class=\"intro\">{{msg.payload}}</>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 480,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bfa4e39b9f9a4d7c",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "c7b99cd074f7c2c3",
+        "name": "Loading Page",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n        height: 100%;\n        }\n        \n        html,\n        body {\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        }\n        /*.nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        color: rgb(43,162,69) !important;\n        }*/\n        .nr-dashboard-template{\n        padding:1px !important;\n        }\n        body.nr-dashboard-theme md-content md-card{\n        background-color:#ffffff;\n        }\n        .nr-dashboard-cardpanel > p{\n        text-align:center !important;\n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        border-bottom:1px #e3e3e3 !important;\n        }\n        .nr-dashboard-template p {\n        background-color:#ffffff !important;\n        text-align: center;\n        font-size:16px;\n        word-wrap:break-word;\n        }\n        .contentText{\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        font-size:16px;\n        font-weight:bold;\n        display: -webkit-box;\n        -webkit-box-orient: horizontal;\n        -webkit-box-pack: center;\n        -webkit-box-align: center;\n        \n        display: -moz-box;\n        -moz-box-orient: horizontal;\n        -moz-box-pack: center;\n        -moz-box-align: center;\n        \n        display: -o-box;\n        -o-box-orient: horizontal;\n        -o-box-pack: center;\n        -o-box-align: center;\n        \n        display: -ms-box;\n        -ms-box-orient: horizontal;\n        -ms-box-pack: center;\n        -ms-box-align: center;\n        \n        display: box;\n        box-orient: horizontal;\n        box-pack: center;\n        box-align: center;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n        <p class=\"coText\">Loading .....  Please Wait For a Bit!</p>\n\n   \n    </div>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50db9c6fabcc6233",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "3d9925b7ba59a813",
+        "name": "Get or Put Back Tool",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n        height: 100%;\n        }\n        \n        html,\n        body {\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        }\n        /*.nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        color: rgb(43,162,69) !important;\n        }*/\n        .nr-dashboard-template{\n        padding:1px !important;\n        }\n        body.nr-dashboard-theme md-content md-card{\n        background-color:#ffffff;\n        }\n        .nr-dashboard-cardpanel > p{\n        text-align:center !important;\n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        border-bottom:1px #e3e3e3 !important;\n        }\n        .nr-dashboard-template p {\n        background-color:#ffffff !important;\n        text-align: center;\n        font-size:16px;\n        word-wrap:break-word;\n        }\n        .contentText{\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        font-size:16px;\n        font-weight:bold;\n        display: -webkit-box;\n        -webkit-box-orient: horizontal;\n        -webkit-box-pack: center;\n        -webkit-box-align: center;\n        \n        display: -moz-box;\n        -moz-box-orient: horizontal;\n        -moz-box-pack: center;\n        -moz-box-align: center;\n        \n        display: -o-box;\n        -o-box-orient: horizontal;\n        -o-box-pack: center;\n        -o-box-align: center;\n        \n        display: -ms-box;\n        -ms-box-orient: horizontal;\n        -ms-box-pack: center;\n        -ms-box-align: center;\n        \n        display: box;\n        box-orient: horizontal;\n        box-pack: center;\n        box-align: center;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n        <p class=\"coText\">The DOOR is OPENED. Please take out or put back your tool.</p>\n    </div>\n    \n</body>\n\n<script>\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 260,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "018f574b7d3ad848",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "1e1b93852f3d42f7",
+        "name": "The Tools",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n        height: 100%;\n        }\n        \n        html,\n        body {\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        }\n        /*.nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        color: rgb(43,162,69) !important;\n        }*/\n        .nr-dashboard-template{\n        padding:1px !important;\n        }\n        body.nr-dashboard-theme md-content md-card{\n        background-color:#ffffff;\n        }\n        .nr-dashboard-cardpanel > p{\n        text-align:center !important;\n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n        border-bottom:1px #e3e3e3 !important;\n        }\n        .nr-dashboard-template p {\n        background-color:#ffffff !important;\n        text-align: center;\n        font-size:16px;\n        word-wrap:break-word;\n        }\n        .contentText{\n        height: 100%;\n        width: 100%;\n        background-color:#ffffff;\n        \n        font-size:16px;\n        font-weight:bold;\n        display: -webkit-box;\n        -webkit-box-orient: horizontal;\n        -webkit-box-pack: center;\n        -webkit-box-align: center;\n        \n        display: -moz-box;\n        -moz-box-orient: horizontal;\n        -moz-box-pack: center;\n        -moz-box-align: center;\n        \n        display: -o-box;\n        -o-box-orient: horizontal;\n        -o-box-pack: center;\n        -o-box-align: center;\n        \n        display: -ms-box;\n        -ms-box-orient: horizontal;\n        -ms-box-pack: center;\n        -ms-box-align: center;\n        \n        display: box;\n        box-orient: horizontal;\n        box-pack: center;\n        box-align: center;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n        <p class=\"coText\">We have detected that you took out / returned these tools:\n    </p>\n    </div>\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 220,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f8833b0c10b4ffb",
+        "type": "ui_template",
+        "z": "6c230a9c2f95163c",
+        "group": "0fd799e79355cd89",
+        "name": "Finish and Thank You",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "format": "<html>\n\n<head>\n    <title>Screen!!!</title>\n    <style>\n        _md flex {\n            height: 100%;\n        }\n\n        html,\n        body {\n            height: 100%;\n            width: 100%;\n            background-color:#ffffff;\n            \n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n          color: rgb(43,162,69) !important;\n        }\n        .nr-dashboard-template{\n          padding:1px !important;\n        }\n        body.nr-dashboard-theme md-content md-card{\n          background-color:#ffffff;\n        }\n        .nr-dashboard-cardpanel > p{\n          text-align:center !important;\n        }\n        .nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle{\n          border-bottom:1px #e3e3e3 !important;\n        }\n        .nr-dashboard-template p {\n          background-color:#ffffff !important; \n          text-align: center;\n          font-size:16px;\n          word-wrap:break-word;\n        }\n        .contentText{\n            height: 100%;\n            width: 100%;\n            background-color:#ffffff;\n            \n          font-size:16px;\n          font-weight:bold;\n          display: -webkit-box;\n          -webkit-box-orient: horizontal;\n          -webkit-box-pack: center;\n          -webkit-box-align: center;\n          \n          display: -moz-box;\n          -moz-box-orient: horizontal;\n          -moz-box-pack: center;\n          -moz-box-align: center;\n          \n          display: -o-box;\n          -o-box-orient: horizontal;\n          -o-box-pack: center;\n          -o-box-align: center;\n          \n          display: -ms-box;\n          -ms-box-orient: horizontal;\n          -ms-box-pack: center;\n          -ms-box-align: center;\n          \n          display: box;\n          box-orient: horizontal;\n          box-pack: center;\n          box-align: center;\n        }\n    </style>\n    \n</head>\n\n<body>\n    <div class=\"contentText\">\n      <p class=\"coText\">Thank you for using our service!<br>The page will restart in 5 seconds. <br>Take Care.</p>\n      <!-- <p class=\"coText\">The page will restart in 5 seconds. Take Care.</p>\n      <p class=\"coText\">Take Care.</p> -->\n        \n    </div>\n\n    \n</body>\n\n<script>\n    /*(function(scope) {\n  //console.log('Position 1');\n  //console.dir(scope);\n  scope.$watch('msg.payload', function(data) {\n  //console.log('Position 2');\n  //console.dir(data);\n    var imgArray = [\n    {\n    value: 50,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic50.png\"\n    },\n    {\n    value:51,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic51.png\"\n    },\n    {\n    value:81,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic81.png\"\n    },\n    {\n    value:92,\n    imgUrl:\"https://www.hko.gov.hk/images/HKOWxIconOutline/pic92.png\"\n    }\n    ];\n    \n    var jsonData = data.weatherForecast;\n    for(i=0;i<jsonData.length;i++){ \n      if(jsonData[i].ForecastIcon==50){ \n        jsonData[i].imgurl=imgArray[0].imgUrl; \n        } \n      else if(jsonData[i].ForecastIcon==51){\n         jsonData[i].imgurl=imgArray[1].imgUrl; \n         } else if(jsonData[i].ForecastIcon==81){\n      jsonData[i].imgurl=imgArray[2].imgUrl; \n      } else if(jsonData[i].ForecastIcon==92){ \n        jsonData[i].imgurl=imgArray[3].imgUrl;\n      } \n     // console.log(jsonData[i].imgurl); \n      } \n      console.log(jsonData) \n      var images=document.getElementsByClassName(\"weatherImg\");\n      for (var j=0; j < images.length; j++) { \n        var image=images[j]; console.log(image);\n         var imagePath=data.weatherForecast[j].imgurl; \n         //console.log(imagePath); \n         image.setAttribute(\"src\", imagePath); }\n  });\n  })(scope);\n*/\n</script>\n\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 480,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "198d539b0fd68c60",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Pages:",
+        "info": "",
+        "x": 70,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "56e58513b3d9987b",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 660,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "17c989fbf00ffea8",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Setup Page and Global Variables",
+        "func": "var obj_code = \"\";\nvar service_type = \"\";\nvar weight_data = {};\nvar cam_data = {};\n\nvar sendPost = false;\n\nvar objs = ['0', '0', '0'];\nvar codes = [\"A11M1\", \"A12W2\", \"A13N1\"];\n\nglobal.set(\"obj_code\", obj_code);\nglobal.set(\"service_type\", service_type);\nglobal.set(\"weight_data\", weight_data);\nglobal.set(\"cam_data\", cam_data);\nglobal.set(\"objs\", objs);\nglobal.set(\"sendPost\", sendPost);\n\nglobal.set(\"codes\", codes);\n\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Please_Swipe_Card\"\n        ],\n        \"hide\": [\n            \"Final_Select_Service\",\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 560,
+        "wires": [
+            [
+                "56e58513b3d9987b"
+            ]
+        ]
+    },
+    {
+        "id": "cc877ed042dc1b8f",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Select Service",
+        "func": "msg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Select_Service\"\n            \n        ],\n        \"hide\": [\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Moving\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 440,
+        "wires": [
+            [
+                "550b5169be48a0c7"
+            ]
+        ]
+    },
+    {
+        "id": "3063516d314fdc82",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1f4e01a58a266567",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "testing: select service",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 680,
+        "y": 380,
+        "wires": [
+            [
+                "cc877ed042dc1b8f"
+            ]
+        ]
+    },
+    {
+        "id": "550b5169be48a0c7",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 840,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be26f180d41c3c0e",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "37a9474bda7cd701",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Borrow",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "Borrow",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1000,
+        "y": 500,
+        "wires": [
+            [
+                "75dae6179984390a",
+                "3e654255130bd6f1",
+                "a0d4be5bee87eb2c"
+            ]
+        ]
+    },
+    {
+        "id": "6f9c698455b6a629",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "37a9474bda7cd701",
+        "order": 6,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Return",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "Return",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 990,
+        "y": 420,
+        "wires": [
+            [
+                "75dae6179984390a",
+                "3e654255130bd6f1",
+                "848cc4cdd7db5ee0"
+            ]
+        ]
+    },
+    {
+        "id": "848cc4cdd7db5ee0",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Return Page",
+        "func": "\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Select_Tool_to_Return\"\n            \n        ],\n        \"hide\": [\n            \"Final_Select_Service\",\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 420,
+        "wires": [
+            [
+                "97512d7208f89128"
+            ]
+        ]
+    },
+    {
+        "id": "a0d4be5bee87eb2c",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Borrow Page",
+        "func": "\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \n            \"Final_Select_Tool_to_Borrow\"\n        ],\n        \"hide\": [\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 480,
+        "wires": [
+            [
+                "18b8894d2e127537"
+            ]
+        ]
+    },
+    {
+        "id": "97512d7208f89128",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 1400,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "18b8894d2e127537",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 1400,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "27a01aec607251a1",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "7f96bc99b56af614",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Yes, Proceed.",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1040,
+        "y": 780,
+        "wires": [
+            [
+                "fb7cb1dd76d40bdc",
+                "36bca4eb81f24a94",
+                "61e0b3d35f7a6bfe",
+                "5c632788136b68c9"
+            ]
+        ]
+    },
+    {
+        "id": "3b311b269e4b09df",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "5feda47adee3205d",
+        "order": 14,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A11M1  Glue Gun",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A11M1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 410,
+        "y": 720,
+        "wires": [
+            [
+                "bead052cb7fc5455",
+                "feeea87bbb312550"
+            ]
+        ]
+    },
+    {
+        "id": "a1660d617183722b",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "5feda47adee3205d",
+        "order": 9,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A12W2 Drill",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A12W2",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 390,
+        "y": 760,
+        "wires": [
+            [
+                "bead052cb7fc5455",
+                "feeea87bbb312550"
+            ]
+        ]
+    },
+    {
+        "id": "c2cc94fd91d9073c",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "5feda47adee3205d",
+        "order": 7,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A13N1 Screw",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A13N1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 400,
+        "y": 800,
+        "wires": [
+            [
+                "bead052cb7fc5455",
+                "feeea87bbb312550"
+            ]
+        ]
+    },
+    {
+        "id": "cd9ddeb4d5dfbc37",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "5feda47adee3205d",
+        "name": "",
+        "width": 2,
+        "height": 2,
+        "order": 3,
+        "category": "tool_Images",
+        "file": "GlueGun.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "52c47835fb5eefe2",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "5feda47adee3205d",
+        "name": "",
+        "width": 2,
+        "height": 2,
+        "order": 5,
+        "category": "tool_Images",
+        "file": "Drill.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a89db1c2718b7b3",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "5feda47adee3205d",
+        "name": "",
+        "width": 2,
+        "height": 2,
+        "order": 11,
+        "category": "tool_Images",
+        "file": "Screw.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bead052cb7fc5455",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Selected",
+        "func": "global.set(\"obj_code\", msg.payload);\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Borrow?\"\n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 800,
+        "wires": [
+            [
+                "7c885ef8913d967a"
+            ]
+        ]
+    },
+    {
+        "id": "7c885ef8913d967a",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 780,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25d9d24568d6528a",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "borrow page",
+        "info": "",
+        "x": 90,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "7a3f0a33dc13ed4b",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "eb13a22d70fa954b",
+        "order": 7,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A11M1  Glue Gun",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A11M1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 410,
+        "y": 900,
+        "wires": [
+            [
+                "b30721410c1b5769",
+                "f0145e142ea1be60"
+            ]
+        ]
+    },
+    {
+        "id": "f6eadef9b601b962",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "eb13a22d70fa954b",
+        "order": 9,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A12W2 Drill",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A12W2",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 390,
+        "y": 940,
+        "wires": [
+            [
+                "b30721410c1b5769",
+                "f0145e142ea1be60"
+            ]
+        ]
+    },
+    {
+        "id": "7d70d439502dc67d",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "eb13a22d70fa954b",
+        "order": 14,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "A13N1 Screw",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "A13N1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 400,
+        "y": 980,
+        "wires": [
+            [
+                "b30721410c1b5769",
+                "f0145e142ea1be60"
+            ]
+        ]
+    },
+    {
+        "id": "85deab173835de53",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "eb13a22d70fa954b",
+        "name": "r m 1",
+        "width": 2,
+        "height": 2,
+        "order": 3,
+        "category": "tool_Images",
+        "file": "GlueGun.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e9e97d3c00f6734",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "eb13a22d70fa954b",
+        "name": "r m 2",
+        "width": 2,
+        "height": 2,
+        "order": 5,
+        "category": "tool_Images",
+        "file": "Drill.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "775937b473f379ef",
+        "type": "ui_media",
+        "z": "6c230a9c2f95163c",
+        "group": "eb13a22d70fa954b",
+        "name": "r m 3",
+        "width": 2,
+        "height": 2,
+        "order": 11,
+        "category": "tool_Images",
+        "file": "Screw.jpg",
+        "layout": "expand",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "muted": true,
+        "scope": "local",
+        "tooltip": "",
+        "x": 250,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b30721410c1b5769",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Selected",
+        "func": "global.set(\"obj_code\", msg.payload);\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Return?\"\n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 980,
+        "wires": [
+            [
+                "8bf7700323090e83"
+            ]
+        ]
+    },
+    {
+        "id": "8bf7700323090e83",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 780,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a1dd237fdf9ded8",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "return page",
+        "info": "",
+        "x": 90,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "305371f52575f4c0",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "7f96bc99b56af614",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "No, Back",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1020,
+        "y": 720,
+        "wires": [
+            [
+                "a0d4be5bee87eb2c"
+            ]
+        ]
+    },
+    {
+        "id": "bad8a46805ed2454",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "5ee414e4a8dd1160",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "No, Back",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1020,
+        "y": 900,
+        "wires": [
+            [
+                "848cc4cdd7db5ee0"
+            ]
+        ]
+    },
+    {
+        "id": "b486423208d6e077",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "5ee414e4a8dd1160",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Yes, Proceed.",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1040,
+        "y": 940,
+        "wires": [
+            [
+                "fb7cb1dd76d40bdc",
+                "36bca4eb81f24a94",
+                "61e0b3d35f7a6bfe",
+                "5c632788136b68c9"
+            ]
+        ]
+    },
+    {
+        "id": "fb7cb1dd76d40bdc",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Loading, preparing the tools for you",
+        "func": "msg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Loading_Page\"\n            \n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 940,
+        "wires": [
+            [
+                "73f2ce913c897c36",
+                "2ced7569799f254e",
+                "5c632788136b68c9"
+            ]
+        ]
+    },
+    {
+        "id": "73f2ce913c897c36",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 1660,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80ce8ab5f3d1407f",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Select Service Page",
+        "info": "",
+        "x": 1030,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a86f6f19f542dfb6",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1f4e01a58a266567",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "test： tools prepared",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 2120,
+        "y": 480,
+        "wires": [
+            [
+                "2ced7569799f254e"
+            ]
+        ]
+    },
+    {
+        "id": "2ced7569799f254e",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Please take out the tool!",
+        "func": "\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Please_Action\"\n            \n            \n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2130,
+        "y": 780,
+        "wires": [
+            [
+                "b6045db1fc5a179f"
+            ]
+        ]
+    },
+    {
+        "id": "969cb1f264bae2ff",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Get your tool, page:",
+        "info": "",
+        "x": 2130,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b6045db1fc5a179f",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 2300,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2552991fa5ee046",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "User Closed the Door",
+        "info": "",
+        "x": 2500,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e14e5975d37d3774",
+        "type": "http request",
+        "z": "6c230a9c2f95163c",
+        "name": "Get_weight Detection",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "192.168.0.100/weight_check",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2520,
+        "y": 960,
+        "wires": [
+            [
+                "a83f044f66371208",
+                "8a2bebfd7007624c"
+            ]
+        ]
+    },
+    {
+        "id": "d5ea311b54211ad5",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "The Tool?",
+        "func": "\n/*try{\n\n\nvar newObjs = global.get(\"objs\");\nvar w = global.get(\"weight_data\").detectedLevel;\n\nfor (var i = 0; i<2; ++i) {\n    if (w[i] == '1') {\n        newObjs[i+1] = true;\n    }\n}\n\nvar cams = global.get(\"weight_data\").detectedLevel;\nfor (var i = 0; i < cams.length; ++i) {\n    newObjs[cams[i]] = true;\n}\n\n\nglobal.set(\"objs\", newObjs);\n\n\n} catch(e) {\n    \n}\n*/\n\ntry{var newObjs = global.get(\"objs\");\nvar w = global.get(\"weight_data\").detectedLevel;\n\n    for (var i = 0; i<2; ++i) {\n    if (w[i] == '1') {\n        newObjs[i+1] = '1';\n    }\n    }\n\nglobal.set(\"objs\", newObjs);\n} catch(e) {\n\nglobal.set(\"objs\", \"000\");\n}\n\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \n            \"Final_The_Tools\"\n            \n            \n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3300,
+        "y": 600,
+        "wires": [
+            [
+                "52c95249de23db47",
+                "33ec15994cd9cb3d",
+                "918fbf4746fa9951"
+            ]
+        ]
+    },
+    {
+        "id": "52c95249de23db47",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 3460,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa5d694bed6729d8",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Start to check detected",
+        "info": "",
+        "x": 2500,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6814b670dc24519c",
+        "type": "http request",
+        "z": "6c230a9c2f95163c",
+        "name": "GET_Cam Detection",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.101:8012/cam_compare",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2520,
+        "y": 1000,
+        "wires": [
+            [
+                "de208a3652a4cc89",
+                "df5a311aa46e0d95"
+            ]
+        ]
+    },
+    {
+        "id": "5c632788136b68c9",
+        "type": "http request",
+        "z": "6c230a9c2f95163c",
+        "name": "Shelf_Check",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "192.168.0.103:1990/shelf_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1610,
+        "y": 560,
+        "wires": [
+            [
+                "a08a613ff0fd492a"
+            ]
+        ]
+    },
+    {
+        "id": "a08a613ff0fd492a",
+        "type": "switch",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1850,
+        "y": 560,
+        "wires": [
+            [
+                "98b9c706c9cb9607"
+            ],
+            [
+                "5c632788136b68c9"
+            ]
+        ]
+    },
+    {
+        "id": "98b9c706c9cb9607",
+        "type": "http request",
+        "z": "6c230a9c2f95163c",
+        "name": "GET Weight Sensor setup",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "192.168.0.100/weight_setup",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1690,
+        "y": 660,
+        "wires": [
+            [
+                "22e10b62cb842c08",
+                "8cebe634be4c3305"
+            ]
+        ]
+    },
+    {
+        "id": "22e10b62cb842c08",
+        "type": "switch",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "set up!!",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "set up!!",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1910,
+        "y": 660,
+        "wires": [
+            [
+                "2ced7569799f254e"
+            ],
+            [
+                "98b9c706c9cb9607"
+            ]
+        ]
+    },
+    {
+        "id": "0e4bf5b696929e97",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "问一下shelf与weight是否准备好",
+        "info": "",
+        "x": 1730,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "96cbbe14a0f18783",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "3d9925b7ba59a813",
+        "order": 2,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "Done Taking Out",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 2230,
+        "y": 880,
+        "wires": [
+            [
+                "e14e5975d37d3774",
+                "6814b670dc24519c",
+                "f09d8d2a643dccfa"
+            ]
+        ]
+    },
+    {
+        "id": "c7d722859cc1f400",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "(Cam Detected || Weight Detected) ",
+        "func": "var bb = false;\nvar camdata = global.get(\"cam_data\");\nvar cam_detected = 0;\n\n\nvar cam_len = 0;\nvar weightdata = global.get(\"weight_data\");\nvar weight_detected = 0;\n\nvar noCam = {};\nfunction isEmpty(obj) {\n    return Object.keys(obj).length === 0;\n}\nvar aa = isEmpty(camdata);\nvar lala =  isEmpty(weightdata);\nif (!aa){\n    var camlevel = camdata.detectedLevel;\n    try{\n        cam_len = camlevel.length;\n    } catch(e) {\n        \n    } \n}\n//const cam_len = global.get(\"cam_data\").detectedLevel.length;\n//const weight_len = global.get(\"weight_data\").detectedLevel.length;\n\nif (weightdata != null){\n    weight_detected = global.get(\"weight_data\").isDetected;\n} \n\nif (weightdata != null) {\n    cam_detected = global.get(\"cam_data\").isDetected;\n} \n\n\nif (weight_detected == 1 || cam_len > 0 ) {\n    \n    bb = true;\n}\n/*if (weight_detected == 1 || cam_detected == 1) {\n\n    bb = true;\n}*/\n\n\nmsg.payload = bb;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3000,
+        "y": 980,
+        "wires": [
+            [
+                "681c687c85314636",
+                "d5ea311b54211ad5"
+            ]
+        ]
+    },
+    {
+        "id": "8a2bebfd7007624c",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Weight Data Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2850,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "df5a311aa46e0d95",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Cam Data Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2730,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "681c687c85314636",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3300,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "a83f044f66371208",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "function 1",
+        "func": "var weight_data = msg.payload;\nglobal.set(\"weight_data\", weight_data);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2720,
+        "y": 960,
+        "wires": [
+            [
+                "c7d722859cc1f400"
+            ]
+        ]
+    },
+    {
+        "id": "de208a3652a4cc89",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "function 2",
+        "func": "var cam_data = msg.payload;\nglobal.set(\"cam_data\", cam_data);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2720,
+        "y": 1000,
+        "wires": [
+            [
+                "c7d722859cc1f400"
+            ]
+        ]
+    },
+    {
+        "id": "7ca2d2fdcbd37c99",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Finish Page",
+        "func": "\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \n            \"Final_Finish_and_Thank_You\"\n            \n            \n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Loading_Page\",\n            \"Final_Please_Action\",\n            \"Final_Return?\",\n            \"Final_Borrow?\",\n            \"Final_The_Tools\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3830,
+        "y": 600,
+        "wires": [
+            [
+                "1c0bc3a2103bcb1b",
+                "55d0861a59d49dbc"
+            ]
+        ]
+    },
+    {
+        "id": "8ee415f0cf6e9053",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1e1b93852f3d42f7",
+        "order": 3,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "Yes, Proceed.",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#e1a523",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 3640,
+        "y": 600,
+        "wires": [
+            [
+                "7ca2d2fdcbd37c99"
+            ]
+        ]
+    },
+    {
+        "id": "1c0bc3a2103bcb1b",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 4020,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55d0861a59d49dbc",
+        "type": "trigger",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "op1": "",
+        "op2": "1",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 4020,
+        "y": 480,
+        "wires": [
+            [
+                "17c989fbf00ffea8",
+                "9423577962f506d9"
+            ]
+        ]
+    },
+    {
+        "id": "6634f31d578299bc",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1f4e01a58a266567",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Testing：Are these the tool?",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 3080,
+        "y": 600,
+        "wires": [
+            [
+                "d5ea311b54211ad5"
+            ]
+        ]
+    },
+    {
+        "id": "f09d8d2a643dccfa",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Loading",
+        "func": "\n\nmsg.payload = {\n    \"group\": {\n        \"show\": [\n            \"Final_Loading_Page\"\n            \n        ],\n        \"hide\": [\n            \"Final_Select_Tool_to_Borrow\",\n            \"Final_Select_Service\",\n            \"Final_Please_Swipe_Card\",\n            \"Final_Select_Tool_to_Return\",\n            \"Final_Please_Action\",\n            \"Final_The_Tools\",\n            \"Final_Finish_and_Thank_You\",\n            \"Final_Return?\",\n            \"Final_Borrow?\"\n        ]\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2500,
+        "y": 880,
+        "wires": [
+            [
+                "68a2c80413d4e609"
+            ]
+        ]
+    },
+    {
+        "id": "68a2c80413d4e609",
+        "type": "ui_ui_control",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "events": "all",
+        "x": 2640,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b50c65fc773ad3e3",
+        "type": "http in",
+        "z": "6c230a9c2f95163c",
+        "name": "Get service type and object code",
+        "url": "/Service_and_Code",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1070,
+        "y": 140,
+        "wires": [
+            [
+                "afd9c79bfb62170e"
+            ]
+        ]
+    },
+    {
+        "id": "f8dbba0f4dd63c1c",
+        "type": "http response",
+        "z": "6c230a9c2f95163c",
+        "name": "Respond",
+        "statusCode": "",
+        "headers": {},
+        "x": 1600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "afd9c79bfb62170e",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "Service Type and Object Code",
+        "func": "var ss = global.get(\"sendPost\");\nmsg.payload = {serviceType : \"\", obj_code : \"\"};\n\nif (ss) {\n    msg.payload = {serviceType : global.get(\"service_type\"), obj_code : global.get(\"obj_code\")};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 140,
+        "wires": [
+            [
+                "f8dbba0f4dd63c1c"
+            ]
+        ]
+    },
+    {
+        "id": "d49a38e4898029ad",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Screen/Service_and_Code Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a25837f60b7e093b",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Setup the Service: for others to get screen data:",
+        "info": "",
+        "x": 1120,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "94110edeea0a94f7",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Loading Page",
+        "info": "",
+        "x": 2710,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "cd4472582958cf52",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Are These the tool you want to... ? Page:",
+        "info": "",
+        "x": 3400,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d49c15f4b5ebfb99",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Final Page:",
+        "info": "",
+        "x": 3830,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c4c218395d862cde",
+        "type": "comment",
+        "z": "6c230a9c2f95163c",
+        "name": "Loading Page",
+        "info": "",
+        "x": 1290,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "feeea87bbb312550",
+        "type": "ui_text",
+        "z": "6c230a9c2f95163c",
+        "group": "7f96bc99b56af614",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Selected Tool",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1040,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "f0145e142ea1be60",
+        "type": "ui_text",
+        "z": "6c230a9c2f95163c",
+        "group": "5ee414e4a8dd1160",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Selected Tool",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1040,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "748d418d697aea11",
+        "type": "ui_text",
+        "z": "6c230a9c2f95163c",
+        "group": "1e1b93852f3d42f7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Tools Detected",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 3680,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "33ec15994cd9cb3d",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "present borrowed",
+        "func": "var objs = global.get(\"objs\");\nvar codes = global.get(\"codes\");\n\nvar list = [];\n\nfor (var i = 0; i<3; ++i) {\n    if (objs[i] == '1') {\n        list.push(codes[i]);\n    }\n}\nif (list.length == 0) {\n    list = \"nothing detected.\";\n}\n\n//msg.payload = list;\nmsg.payload = \"A12W2\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3490,
+        "y": 660,
+        "wires": [
+            [
+                "748d418d697aea11"
+            ]
+        ]
+    },
+    {
+        "id": "75dae6179984390a",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Serveice Selected",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2880bb8cc2eb16e6",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1f4e01a58a266567",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "test：w setup check",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 320,
+        "wires": [
+            [
+                "98b9c706c9cb9607"
+            ]
+        ]
+    },
+    {
+        "id": "3e654255130bd6f1",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "set service",
+        "func": "global.set(\"service_type\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36bca4eb81f24a94",
+        "type": "trigger",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "op1": "",
+        "op2": "1",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "10",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1270,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c782bfc286afdcf5",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "function 3",
+        "func": "global.set(\"obj_code\", \"\");\nglobal.set(\"service_type\", \"\");\n",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8cebe634be4c3305",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "w setup",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1860,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "ae477f71c1ec24b6",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "s setup",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6f5e1ae283364345",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Lock Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "61e0b3d35f7a6bfe",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "function 4",
+        "func": "global.set(\"sendPost\", true);\n\n",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "03193a3557765c05",
+        "type": "ui_button",
+        "z": "6c230a9c2f95163c",
+        "name": "",
+        "group": "1f4e01a58a266567",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "test：done taking out",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 2380,
+        "y": 480,
+        "wires": [
+            [
+                "e14e5975d37d3774",
+                "6814b670dc24519c"
+            ]
+        ]
+    },
+    {
+        "id": "759fca297b406198",
+        "type": "debug",
+        "z": "6c230a9c2f95163c",
+        "name": "Detected Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3480,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "918fbf4746fa9951",
+        "type": "function",
+        "z": "6c230a9c2f95163c",
+        "name": "The Tool?",
+        "func": "\n\n\nmsg.payload = global.get(\"objs\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3320,
+        "y": 740,
+        "wires": [
+            [
+                "759fca297b406198"
+            ]
+        ]
+    },
+    {
+        "id": "02be66706b0a5110",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "37a9474bda7cd701",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "ec727b8757e8ec8b",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "37a9474bda7cd701",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "25fb6701f218a265",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "37a9474bda7cd701",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "6165124d3536d461",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "37a9474bda7cd701",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "049b06ad8e39955b",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 2,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "bdb77823a10c934b",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "10fb4418801d1af6",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a7b1a1e2d5760c40",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "9f43562d3e42567f",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 10,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "bc4ed2fcc876248a",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 12,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "05825448613ef6fe",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 13,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "777c6f35c3d1a1c2",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "5feda47adee3205d",
+        "order": 15,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "4d94c4186bf0888e",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 2,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "a8b5cdb8cc2c5326",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a5541bd0c9dfe073",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "edc302f5e5ffec62",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "3175c7e8a7612750",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 10,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "0bd835947a563526",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 12,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "935d2003e3a0e494",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 13,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "4cc995225fb5c5c4",
+        "type": "ui_spacer",
+        "z": "6c230a9c2f95163c",
+        "name": "spacer",
+        "group": "eb13a22d70fa954b",
+        "order": 15,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "4efb05967f065466",
+        "type": "ui_group",
+        "name": "Please Swipe Card",
+        "tab": "6d327e175068da5a",
+        "order": 1,
+        "disp": false,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "37a9474bda7cd701",
+        "type": "ui_group",
+        "name": "Select Service",
+        "tab": "6d327e175068da5a",
+        "order": 2,
+        "disp": true,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5feda47adee3205d",
+        "type": "ui_group",
+        "name": "Select Tool to Borrow",
+        "tab": "6d327e175068da5a",
+        "order": 3,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "eb13a22d70fa954b",
+        "type": "ui_group",
+        "name": "Select Tool to Return",
+        "tab": "6d327e175068da5a",
+        "order": 4,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c7b99cd074f7c2c3",
+        "type": "ui_group",
+        "name": "Loading Page",
+        "tab": "6d327e175068da5a",
+        "order": 7,
+        "disp": true,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3d9925b7ba59a813",
+        "type": "ui_group",
+        "name": "Please Action",
+        "tab": "6d327e175068da5a",
+        "order": 8,
+        "disp": true,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1e1b93852f3d42f7",
+        "type": "ui_group",
+        "name": "The Tools",
+        "tab": "6d327e175068da5a",
+        "order": 9,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0fd799e79355cd89",
+        "type": "ui_group",
+        "name": "Finish and Thank You",
+        "tab": "6d327e175068da5a",
+        "order": 10,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1f4e01a58a266567",
+        "type": "ui_group",
+        "name": "Welcome Page",
+        "tab": "59dfa32343309079",
+        "order": 1,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7f96bc99b56af614",
+        "type": "ui_group",
+        "name": "Borrow?",
+        "tab": "6d327e175068da5a",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5ee414e4a8dd1160",
+        "type": "ui_group",
+        "name": "Return?",
+        "tab": "6d327e175068da5a",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6d327e175068da5a",
+        "type": "ui_tab",
+        "name": "Final",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "59dfa32343309079",
+        "type": "ui_tab",
+        "name": "Tool Borrowing System Short Cut",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
