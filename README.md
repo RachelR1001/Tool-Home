@@ -26,4 +26,5 @@ An interactive device for automated tool borrowing and returning, similar to a v
 
 
 ## Prototype
-Demo Video:
+Demo Video: https://drive.google.com/file/d/18eQdj94JBpXDDHLGeKMi-SXG9pMIfWfo/view?usp=sharing
+
